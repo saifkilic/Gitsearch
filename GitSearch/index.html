@@ -1,29 +1,388 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-    <script defer src="./script.js"></script>
-    <title>GitSearch</title>
-  </head>
-  <body>
-    <section>
-      <header>
-        <h1>GitSearch</h1>
-      </header>
-      <form autocomplete="off" id="form" class="form">
-        <input
-          placeholder="Search for users"
-          type="text"
-          id="userInput"
-          class="userInput"
-        />
-      </form>
-      <div class="searchResultCont" id="searchResultCont"></div>
-    </section>
-    
-    <script src="script.js"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+    />
+
+    <title>GitSearch • Developer Discovery</title>
+
+    <meta
+            name="description"
+            content="Discover developers, compare GitHub profiles, and curate your favorite talent."
+    />
+
+    <!-- Fonts -->
+    <link
+            rel="preconnect"
+            href="https://fonts.googleapis.com"
+    >
+    <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossorigin
+    >
+
+    <link
+            href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+            rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+
+<div class="noise"></div>
+
+<div class="app">
+
+    <!-- Sidebar -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-top">
+
+            <div class="logo">
+
+                <div class="logo-circle"></div>
+
+                <div class="logo-content">
+
+                    <h2>GitSearch</h2>
+
+                
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <nav class="nav-menu">
+
+            <button
+                    class="nav-item active"
+                    data-view="search"
+            >
+                Search
+            </button>
+
+            <button
+                    class="nav-item"
+                    data-view="compare"
+            >
+                Compare
+            </button>
+
+            <button
+                    class="nav-item"
+                    data-view="bookmarks"
+            >
+                Bookmarks
+
+                <span
+                        class="bookmark-count"
+                        id="bookmarkCount"
+                >
+                    0
+                </span>
+
+            </button>
+
+            <button
+                    class="nav-item"
+                    data-view="trending"
+            >
+                Trending
+            </button>
+
+        </nav>
+
+    </aside>
+
+    <!-- Main -->
+
+    <main class="main-content">
+
+        <!-- Hero -->
+
+        <header class="hero">
+
+            <div class="hero-badge">
+
+                Premium GitHub Discovery
+
+            </div>
+
+            <h1>
+
+                Discover remarkable developers.
+
+            </h1>
+
+            <p>
+
+                Explore talent, compare profiles, and curate your own collection
+                of inspiring developers.
+
+            </p>
+
+        </header>
+
+        <!-- Search -->
+
+        <section class="search-section">
+
+            <div class="search-card">
+
+                <div class="search-title">
+
+                    Search GitHub
+
+                </div>
+
+                <div class="search-subtitle">
+
+                    Find developers by username.
+
+                </div>
+
+                <div class="search-wrapper">
+
+                    <input
+                            id="searchInput"
+                            class="search-input"
+                            type="text"
+                            placeholder="Enter GitHub username"
+                    >
+
+                    <button
+                            class="search-button"
+                    >
+                        Search
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Loading -->
+
+        <section
+                class="loading-container hidden"
+                id="loadingContainer"
+        >
+
+            <div class="loading-card">
+
+                <div class="loading-avatar"></div>
+
+                <div class="loading-content">
+
+                    <div class="loading-line large"></div>
+
+                    <div class="loading-line"></div>
+
+                    <div class="loading-line short"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Views -->
+
+        <section class="views-container">
+
+            <!-- Search -->
+
+            <div
+                    class="view active"
+                    id="searchView"
+            >
+
+                <div
+                        class="search-content"
+                        id="searchContent"
+                >
+
+                    <div class="empty-state">
+
+                        <h2>
+
+                            Start discovering
+
+                        </h2>
+
+                        <p>
+
+                            Search for a GitHub profile to begin.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Compare -->
+
+            <div
+                    class="view"
+                    id="compareView"
+            >
+
+                <div
+                        class="compare-setup"
+                        id="compareSetup"
+                >
+
+                    <div class="compare-card">
+
+                        <div class="section-label">
+
+                            Side by Side
+
+                        </div>
+
+                        <h2>
+
+                            Compare developers
+
+                        </h2>
+
+                        <p>
+
+                            Evaluate two GitHub profiles in a beautiful,
+                            distraction-free layout.
+
+                        </p>
+
+                        <div class="compare-inputs">
+
+                            <input
+                                    type="text"
+                                    id="compareUser1"
+                                    placeholder="Username One"
+                            >
+
+                            <div class="vs">
+
+                                VS
+
+                            </div>
+
+                            <input
+                                    type="text"
+                                    id="compareUser2"
+                                    placeholder="Username Two"
+                            >
+
+                        </div>
+
+                        <button
+                                class="primary-btn"
+                                id="compareBtn"
+                        >
+
+                            Compare Profiles
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div
+                        class="compare-results hidden"
+                        id="compareResults"
+                ></div>
+
+            </div>
+
+            <!-- Bookmarks -->
+
+            <div
+                    class="view"
+                    id="bookmarksView"
+            >
+
+                <div
+                        class="bookmarks-container"
+                        id="bookmarksContainer"
+                >
+
+                    <div class="empty-state">
+
+                        <h2>
+
+                            Your collection
+
+                        </h2>
+
+                        <p>
+
+                            Saved developers will appear here.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Trending -->
+
+            <div
+                    class="view"
+                    id="trendingView"
+            >
+
+                <div
+                        class="trending-container"
+                        id="trendingContainer"
+                >
+
+                    <div class="empty-state">
+
+                        <h2>
+
+                            Trending Developers
+
+                        </h2>
+
+                        <p>
+
+                            Loading remarkable developers...
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<!-- Toast -->
+
+<div
+        class="toast-container"
+        id="toastContainer"
+></div>
+
+</body>
 </html>
